@@ -19,6 +19,17 @@ function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+function handleTodoSearch() {
+    const search = searchInput.value.toLowerCase();
+
+    if(search) {
+        const matchingTodos = todos.filter(item => item.text.toLowerCase().includes(search));
+        renderTodos(matchingTodos);
+    } else {
+        renderTodos(todos)
+    }
+}
+
 function handleTodoDelete(todoId, todoContainer) {
     return () => {
         if(confirm('Are you sure you want to delete this todo')) {
@@ -86,13 +97,9 @@ document.forms[0].addEventListener('submit', (evt) => {
     todoInput.value = '';
 })
 
-searchInput.addEventListener('keyup', (evt) => {
-    const search = searchInput.value.toLowerCase();
+searchInput.addEventListener('keyup', handleTodoSearch)
 
-    if(search) {
-        const matchingTodos = todos.filter(item => item.text.toLowerCase().includes(search));
-        renderTodos(matchingTodos);
-    } else {
-        renderTodos(todos)
-    }
+window.addEventListener('storage', () => {
+    todos = JSON.parse(localStorage.getItem('todos')) || [];
+    handleTodoSearch();
 })
