@@ -22,13 +22,7 @@ function saveTodos() {
 function handleTodoDelete(todoId, todoContainer) {
     return () => {
         if(confirm('Are you sure you want to delete this todo')) {
-            const newTodos = [];
-            todos.forEach(item => {
-                if (item.id !== todoId) {
-                    newTodos.push(item)
-                }
-            })
-            todos = newTodos;
+            todos = todos.filter(item => item.id !== todoId)
             saveTodos();
             todosDiv.querySelector('div').removeChild(todoContainer);
         }
@@ -90,4 +84,15 @@ document.forms[0].addEventListener('submit', (evt) => {
     evt.preventDefault();
     addTodo(todoInput.value)
     todoInput.value = '';
+})
+
+searchInput.addEventListener('keyup', (evt) => {
+    const search = searchInput.value.toLowerCase();
+
+    if(search) {
+        const matchingTodos = todos.filter(item => item.text.toLowerCase().includes(search));
+        renderTodos(matchingTodos);
+    } else {
+        renderTodos(todos)
+    }
 })
