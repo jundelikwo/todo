@@ -4,6 +4,8 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const searchInput = document.querySelector('#search');
 const todoInput = document.querySelector('#todo');
 const todosDiv = document.querySelector('#todos');
+const addForm = document.querySelector('#add-form');
+const editForm = document.querySelector('#edit-form');
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 renderTodos(todos);
@@ -40,6 +42,29 @@ function handleTodoDelete(todoId, todoContainer) {
     }
 }
 
+function handleTodoEdit(todo, todoContainer) {
+    return () => {
+        addForm.classList.add('disabled');
+        editForm.classList.remove('disabled');
+        editForm.querySelector('h6').innerHTML = 'Editing todo: ' + todo.text;
+        const editInput = editForm.querySelector('input');
+        editInput.value = todo.text;
+
+        editForm.onsubmit = (evt) => {
+            evt.preventDefault();
+            todoContainer.querySelector('h3').innerHTML = editInput.value;
+
+            const newTodo = todos.find(item => item.id === todo.id);
+            newTodo.text = editInput.value;
+            saveTodos();
+
+            editInput.value = '';
+            addForm.classList.remove('disabled');
+            editForm.classList.add('disabled');
+        }
+    }
+}
+
 function handleTodoCopy(todoText, copyBtn) {
     return () => {
         navigator.clipboard.writeText(todoText);
@@ -63,6 +88,7 @@ function generateTodoElement(todo) {
     buttonDiv.appendChild(copyBtn);
     const editBtn = document.createElement('button');
     editBtn.innerHTML = 'Edit';
+    editBtn.addEventListener('click', handleTodoEdit(todo, todoContainer));
     buttonDiv.appendChild(editBtn);
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = 'Delete';
@@ -91,7 +117,7 @@ function addTodo(todoText) {
     todosDiv.querySelector('div').appendChild(generateTodoElement(todo));
 }
 
-document.forms[0].addEventListener('submit', (evt) => {
+addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     addTodo(todoInput.value)
     todoInput.value = '';

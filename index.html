@@ -3,14 +3,26 @@
     <head>
         <title>Todo App</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .disabled {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <h1>Todo App</h1>
-        <form>
-            <input type="text" placeholder="Search" id="search" />
+        <input type="text" placeholder="Search" id="search" />
+        <form id="add-form">
             <div>
                 <input type="text" required placeholder="Todo Text" id="todo" />
                 <button type="submit">Add Todo</button>
+            </div>
+        </form>
+        <form id="edit-form" class="disabled">
+            <div>
+                <h6>Editing todo:</h6>
+                <input type="text" required placeholder="Todo Text" />
+                <button type="submit">Save Todo</button>
             </div>
         </form>
         <div id="todos"></div>
