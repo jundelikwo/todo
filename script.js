@@ -57,33 +57,38 @@ function handleTodoEdit(todo, todoContainer) {
     }
 }
 
-function handleTodoCopy(todoText, copyBtn) {
+function handleTodoCopy(todo, copyBtn) {
     return () => {
-        navigator.clipboard.writeText(todoText);
+        navigator.clipboard.writeText(todo.text);
         copyBtn.innerHTML = 'Copied';
-        setTimeout(() => copyBtn.innerHTML="Copy", 3000);
+        setTimeout(() => copyBtn.innerHTML="Copy", 1000);
     };
 }
 
 function generateTodoElement(todo) {
     const todoContainer = document.createElement('div');
-    todoContainer.classList.add('todo');
+    todoContainer.classList.add('todo', 'card', 'card-body');
     const todoText = document.createElement('h3')
+    todoText.classList.add('h4');
     todoText.innerHTML = todo.text;
     const todoDate = document.createElement('h5')
+    todoDate.classList.add('text-muted', 'h6');
     todoDate.innerHTML = todo.date;
 
     const buttonDiv = document.createElement('div');
     const copyBtn = document.createElement('button');
     copyBtn.innerHTML = 'Copy';
-    copyBtn.addEventListener('click', handleTodoCopy(todo.text, copyBtn));
+    copyBtn.classList.add('btn', 'btn-outline-secondary');
+    copyBtn.addEventListener('click', handleTodoCopy(todo, copyBtn));
     buttonDiv.appendChild(copyBtn);
     const editBtn = document.createElement('button');
     editBtn.innerHTML = 'Edit';
+    editBtn.classList.add('btn', 'btn-outline-secondary');
     editBtn.addEventListener('click', handleTodoEdit(todo, todoContainer));
     buttonDiv.appendChild(editBtn);
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = 'Delete';
+    deleteBtn.classList.add('btn', 'btn-outline-danger');
     deleteBtn.addEventListener('click', handleTodoDelete(todo.id, todoContainer));
     buttonDiv.appendChild(deleteBtn);
 

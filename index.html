@@ -2,30 +2,48 @@
 <html>
     <head>
         <title>Todo App</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap.min.css" rel="stylesheet">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <style>
             .disabled {
                 display: none;
             }
+            .search {
+                border: 1px solid #ced4da;
+                background: #E9EEF4;
+            }
         </style>
     </head>
     <body>
-        <h1>Todo App</h1>
-        <input type="text" placeholder="Search" id="search" />
-        <form id="add-form">
-            <div>
-                <input type="text" required placeholder="Todo Text" id="todo" />
-                <button type="submit">Add Todo</button>
-            </div>
-        </form>
-        <form id="edit-form" class="disabled">
-            <div>
-                <h6>Editing todo:</h6>
-                <input type="text" required placeholder="Todo Text" />
-                <button type="submit">Save Todo</button>
-            </div>
-        </form>
-        <div id="todos"></div>
+        <div class="container">
+            <h1 class="text-center">Todo App</h1>
+            <form class="form-inline justify-content-center">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn search"><i class="bx bx-search-alt"></i></span>
+                        </span>
+                        <input type="text" placeholder="Search" id="search" class="form-control" />
+                    </div>
+                </div>
+            </form>
+            <form id="add-form" class="form-inline mb-5 mt-3">
+                <div class="w-100">
+                    <input type="text" class="form-control w-75" required placeholder="Todo Text" id="todo" />
+                    <button type="submit" class="btn btn-outline-secondary">Add Todo</button>
+                </div>
+            </form>
+            <form id="edit-form" class="disabled mb-5 mt-3">
+                <h6 class="text-muted">Editing todo:</h6>
+                <div class="form-inline">
+                    <div class="w-100">
+                        <input type="text" class="form-control w-75" required placeholder="Todo Text" />
+                        <button type="submit" class="btn btn-outline-secondary">Save Todo</button>
+                    </div>
+                </div>
+            </form>
+            <div id="todos"></div>
+        </div>
     </body>
     <script src="script.js"></script>
 </html>
