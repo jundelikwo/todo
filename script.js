@@ -1,14 +1,6 @@
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const searchInput = document.querySelector('#search');
-const todoInput = document.querySelector('#todo');
-const todosDiv = document.querySelector('#todos');
-const addForm = document.querySelector('#add-form');
-const editForm = document.querySelector('#edit-form');
-let todos = JSON.parse(localStorage.getItem('todos')) || [];
-
-renderTodos(todos);
 
 function renderTodos(todosList) {
     const todosContainer = document.createElement('div');
@@ -116,6 +108,17 @@ function addTodo(todoText) {
 
     todosDiv.querySelector('div').appendChild(generateTodoElement(todo));
 }
+
+
+
+const searchInput = document.querySelector('#search');
+const todoInput = document.querySelector('#todo');
+const todosDiv = document.querySelector('#todos');
+const addForm = document.querySelector('#add-form');
+const editForm = document.querySelector('#edit-form');
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+renderTodos(todos);
 
 addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
