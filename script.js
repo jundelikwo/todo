@@ -40,6 +40,7 @@ function handleTodoEdit(todo, todoContainer) {
         editForm.classList.remove('disabled');
         editForm.querySelector('h6').innerHTML = 'Editing todo: ' + todo.text;
         const editInput = editForm.querySelector('input');
+        editInput.focus();
         editInput.value = todo.text;
 
         editForm.onsubmit = (evt) => {
